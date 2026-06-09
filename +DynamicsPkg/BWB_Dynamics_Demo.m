@@ -244,8 +244,10 @@ end
 figure;
 if RunCgSweep
     plot(CgSweep.XcgMAC, [CgSweep.PitchCaseSweep.Trim, CgSweep.PitchCaseSweep.Pullup, ...
-        CgSweep.PitchCaseSweep.Cruise, CgSweep.PitchCaseSweep.Rotation, ...
-        CgSweep.PitchCaseSweep.MaxAreaFraction], "LineWidth", 1.5);
+        CgSweep.PitchCaseSweep.Cruise, CgSweep.PitchCaseSweep.Rotation], "LineWidth", 1.5);
+    hold on
+    plot(CgSweep.XcgMAC, CgSweep.PitchCaseSweep.MaxAreaFraction, "--", ...
+        "Color", [0.55, 0.80, 0.55], "LineWidth", 2.0);
     legend(["Trim", "Pull-up", "Cruise", "Rotation", "Envelope"], "Location", "best");
 else
     plot(CgSweep.XcgMAC, CgSweep.PitchAreaFraction, "o", "MarkerSize", 8, "LineWidth", 1.5);
@@ -256,8 +258,8 @@ AreaLimit = max(0.06, 1.2 * max(CgSweep.PitchAreaFraction));
 ylim([0, AreaLimit]);
 ForwardCG = Aircraft.Specs.Dynamics.CG.ForwardMAC;
 AftCG = Aircraft.Specs.Dynamics.CG.AftMAC;
-xline(ForwardCG, "--");
-xline(AftCG, "--");
+xline(ForwardCG, "--", "HandleVisibility", "off");
+xline(AftCG, "--", "HandleVisibility", "off");
 LabelInset = 0.005 * (AftCG - ForwardCG);
 text(ForwardCG + LabelInset, 0.08 * AreaLimit, "Forward CG limit", ...
     "HorizontalAlignment", "left", "VerticalAlignment", "bottom");
