@@ -1,40 +1,35 @@
 # BWB Control Surface Sizing
 
-Conceptual MATLAB/CasADi sizing demo for control-surface placement on a
-100 ft span blended-wing-body aircraft. The planform data are generated from
-the NASA/Boeing X-48 outline and scaled to the demo span.
+Conceptual MATLAB/CasADi demo for sizing pitch, roll, and rudder control surfaces on a 100 ft span blended-wing-body aircraft. The chord data are based on a NASA/Boeing X-48 outline scaled to the demo span.
 
-## What is included
+## Results
 
-- `+DynamicsPkg`: BWB control-surface sizing, CasADi optimization,
-  feasibility checks, and plotting.
-- `+MissionSegsPkg`: minimal atmosphere/flight-condition helpers used by the
-  demo.
-- `+DynamicsPkg/outputs`: current generated plots and X-48-derived chord
-  tables.
-- `docs/dynamics_workflow.md`: workflow chart.
+![Selected control surface placement](+DynamicsPkg/outputs/control_surface_areas.png)
 
-## Requirements
-
-- MATLAB
-- CasADi for MATLAB on the MATLAB path. The demo is set up for
-  `C:\Program Files\MATLAB\casadi-3.7.2-windows64-matlab2018b` via
-  `DynamicsPkg.SetupCasadi`.
+![Pitch elevon requirement versus CG](+DynamicsPkg/outputs/elevator_area_vs_cg.png)
 
 ## Run
 
-From the repository root:
+Install CasADi for MATLAB, then make sure MATLAB can find it. This repo currently points to:
+
+```matlab
+C:\Program Files\MATLAB\casadi-3.7.2-windows64-matlab2018b
+```
+
+If your CasADi install is somewhere else, edit the path in:
+
+```matlab
++DynamicsPkg/SetupCasadi.m
+```
+
+Then run from the repository root:
 
 ```matlab
 DynamicsPkg.BWB_Dynamics_Demo(true, true)
 ```
 
-The first argument enables the full report plots. The second argument
-re-optimizes pitch-required elevon area across the CG envelope.
+The first argument generates the full report plots. The second argument re-optimizes pitch-required elevon area across the CG range.
 
-## Scope
+## Notes
 
-This is a conceptual sizing workflow, not a validated 6DOF aircraft model. The
-BWB aero/stability derivatives in `BWB_Dynamics_Demo.m` are placeholder demo
-values and should be replaced with project-specific aerodynamic data before
-design use.
+This is a conceptual sizing workflow, not a validated aircraft model. The demo aero/stability derivatives in `+DynamicsPkg/BWB_Dynamics_Demo.m` are placeholder values and should be replaced with project-specific data for design use.
